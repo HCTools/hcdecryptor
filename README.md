@@ -11,6 +11,7 @@ Decrypts files with `.hc` extension, for the app [HTTP Custom](https://play.goog
 ## Usage
 
 Simply place your `encrypted.hc` file in the same folder as the main script, then run:
+
     python3 decrypt.py encrypted.hc <key>
 
 ## Keys
