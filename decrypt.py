@@ -21,7 +21,7 @@ print(f'Opened file "{args.file}"')
 
 # unxor the file
 print('UnXORing the file')
-b64_encrypted_contents = ''
+b64_encrypted_contents = b''
 
 for index in range(len(xor_b64_encrypted_contents)):
     b64_encrypted_contents += bytes([ord(xor_b64_encrypted_contents[index]) ^ ord(xorList[index % len(xorList)])])
