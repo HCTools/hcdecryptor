@@ -1,12 +1,10 @@
 <p align="center">
-<img src="https://github.com/hctools/hcdecryptor/blob/master/lotion_from_frogdom.jpg?raw=true" alt="ahh yes, lotion from frogdom"/>
+  <img src="https://github.com/hctools/hcdecryptor/blob/master/lotion_from_frogdom.jpg?raw=true" alt="ahh yes, lotion from frogdom"/>
 
-# hcdecryptor
+  <h2>hcdecryptor</h2>
+  <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
-#### Decryptor for HTTP Custom configuration files 
-
+  <h4>Decryptor for HTTP Custom configuration files</h4>
 </p>
 
 <hr />
