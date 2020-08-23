@@ -1,11 +1,37 @@
 from argparse import ArgumentParser
 
-from typing import Callable, List, ByteString, NewType
+from typing import Callable, List, ByteString, NamedTuple, Dict, NewType
 
 from base64 import b64decode
 
 from Crypto.Hash import SHA1
 from Crypto.Cipher import AES
+
+valueMap: List[str] = [
+    'payload', 
+    'payloadProxyURL', 
+    'shouldNotWorkWithRoot', 
+    'lockPayloadAndServers', 
+    'expiryDate', 
+    'hasNotes', 
+    'noteField2', 
+    'sshAddress', 
+    'onlyAllowOnMobileData', 
+    'unlockRemoteProxy',
+    'unknown',
+    'vpnAddress',
+    'sslSni',
+    'shouldConnectUsingSSH',
+    'lockPayload',
+    'udpgwPort',
+    'hasHWID',
+    'hwid',
+    'noteField1',
+    'unlockUserAndPassword',
+    'sslAndPayloadMode',
+    'enablePassword',
+    'password'
+]
 
 xorList: List[str] = ['。', '〃', '〄', '々', '〆', '〇', '〈', '〉', '《', '》', '「', '」', '『', '』', '【', '】', '〒', '〓', '〔', '〕']
 
@@ -42,14 +68,17 @@ def decrypt_obfuscated(contents: ByteString, key: str) -> ByteString:
 parser = ArgumentParser('hcdecryptor')
 parser.add_argument('file', help='file to decrypt')
 parser.add_argument('key', help='key to decrypt the file with')
-args = parser.parse_args()
+args: NamedTuple = parser.parse_args()
 
 # open file
 xor_b64_encrypted_file = open(args.file, mode='r')
-xor_b64_encrypted_contents = xor_b64_encrypted_file.read()
+xor_b64_encrypted_contents: ByteString = xor_b64_encrypted_file.read()
 
 print(f'Opened file "{args.file}"')
 
-original_contents = encryption_schemes[1](xor_b64_encrypted_contents, args.key)
+original_contents: ByteString = encryption_schemes[1](xor_b64_encrypted_contents, args.key)
 
-print(original_contents)
+config: List[str] = original_contents.split(b'[splitConfig]')
+values: Dict[str, str] = dict(zip(valueMap, config))
+
+print(values)
