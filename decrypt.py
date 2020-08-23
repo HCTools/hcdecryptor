@@ -6,6 +6,7 @@ from base64 import b64decode
 
 from Crypto.Hash import SHA1
 from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
 
 valueMap: List[str] = [
     'payload', 
@@ -68,6 +69,7 @@ def decrypt_obfuscated(contents: ByteString, key: str) -> ByteString:
 parser = ArgumentParser('hcdecryptor')
 parser.add_argument('file', help='file to decrypt')
 parser.add_argument('key', help='key to decrypt the file with')
+parser.add_argument('--raw', '-r', action='store_true', help='output raw, decrypted file')
 args: NamedTuple = parser.parse_args()
 
 # open file
@@ -78,7 +80,10 @@ print(f'Opened file "{args.file}"')
 
 original_contents: ByteString = encryption_schemes[1](xor_b64_encrypted_contents, args.key)
 
-config: List[str] = original_contents.split(b'[splitConfig]')
-values: Dict[str, str] = dict(zip(valueMap, config))
+if not args.raw:
+    config: List[str] = original_contents.split(b'[splitConfig]')
+    values: Dict[str, str] = dict(zip(valueMap, config))
 
-print(values)
+    print(values)
+else:
+    print(original_contents)
