@@ -23,8 +23,8 @@ valueMap: List[str] = [
     'vpnAddress',
     'sslSni',
     'shouldConnectUsingSSH',
-    'lockPayload',
     'udpgwPort',
+    'lockPayload',
     'hasHWID',
     'hwid',
     'noteField1',
@@ -78,10 +78,10 @@ xor_b64_encrypted_contents: ByteString = xor_b64_encrypted_file.read()
 
 print(f'Opened file "{args.file}"')
 
-original_contents: ByteString = encryption_schemes[1](xor_b64_encrypted_contents, args.key)
+original_contents: str = encryption_schemes[1](xor_b64_encrypted_contents, args.key).decode('utf-8')
 
 if not args.raw:
-    config: List[str] = original_contents.split(b'[splitConfig]')
+    config: List[str] = original_contents.split('[splitConfig]')
     values: Dict[str, str] = dict(zip(valueMap, config))
 
     print(values)
