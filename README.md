@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="https://github.com/hctools/hcdecryptor/blob/master/lotion_from_frogdom.jpg?raw=true" alt="ahh yes, lotion from frogdom"/>
-</p>
 
-<hr />
 
 # hcdecryptor
 
