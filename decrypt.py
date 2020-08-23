@@ -1,7 +1,31 @@
 #!/usr/bin/env python3
+'''
+Copyright (C) 2020  The HCDecryptor Authors
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''
+
+# print a GPL notice
+copyrightNotice = '''HCDecryptor, Copyright (C) 2020  The HCDecryptor Authors\n
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it under certain conditions.
+'''
+print(copyrightNotice)
+
 from argparse import ArgumentParser
 
-from typing import Callable, List, ByteString, Tuple, NamedTuple, Dict, NewType
+from typing import Callable, List, ByteString, Tuple, Dict, NewType
 
 from base64 import b64decode
 
@@ -66,14 +90,15 @@ def decrypt_obfuscated(contents: ByteString, key: str) -> ByteString:
     # then use the plain decryptor
     return decrypt_plain(encrypted_contents, key)
 
-embeddedKeyList: str = """1:hc_reborn___7
+embeddedKeyList: str = '''1:hc_reborn___7
 1:hc_reborn_tester_5
 1:hc_reborn_7
 1:hc_reborn_4
-"""
+'''
 
 # parse arguments
 parser = ArgumentParser('hcdecryptor')
+
 parser.add_argument('file', help='file to decrypt')
 
 key_args = parser.add_mutually_exclusive_group()
@@ -81,7 +106,7 @@ key_args.add_argument('--key', '-k', help='key to use to decrypt the file')
 key_args.add_argument('--keyfile', '-K', help='keyfile to additionally look for keys in')
 
 parser.add_argument('--raw', '-r', action='store_true', help='output raw, decrypted file')
-args: NamedTuple = parser.parse_args()
+args = parser.parse_args()
 
 # parse keyfile
 def parse_key_entry(entry: str):

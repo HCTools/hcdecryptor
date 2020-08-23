@@ -1,5 +1,15 @@
+<p align="center">
+<img src="https://github.com/hctools/hcdecryptor/blob/master/lotion_from_frogdom.jpg?raw=true" alt="ahh yes, lotion from frogdom"/>
+
 # hcdecryptor
-Decryptor for HTTP Custom configuration files 
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+#### Decryptor for HTTP Custom configuration files 
+
+</p>
+
+<hr />
 
 Decrypts files with `.hc` extension, for the app [HTTP Custom](https://play.google.com/store/apps/details?id=xyz.easypro.httpcustom)
 
@@ -7,6 +17,10 @@ Decrypts files with `.hc` extension, for the app [HTTP Custom](https://play.goog
 
     python3
     pycryptodome
+
+## Installation
+
+Install dependencies using `pip install -r requirements.txt`.
 
 ## Usage
 
@@ -21,8 +35,8 @@ The keys change between some versions. The most recent key that should work with
 The most recent public beta key is `hc_reborn___7` (2.6, 232)
 
 Another key which may work is `hc_reborn_7` (2.4, 210)
- 
 
 And finally the last most used one is `hc_reborn_tester_5` (2.5, unknown build)
 
 More keys will be added to the default keylist if changed by the app.
+
