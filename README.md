@@ -12,7 +12,7 @@ Decrypts files with `.hc` extension, for the app [HTTP Custom](https://play.goog
 
 Simply place your `encrypted.hc` file in the same folder as the main script, then run:
 
-    python3 decrypt.py encrypted.hc <key>
+    python3 decrypt.py encrypted.hc
 
 ## Keys
 
@@ -24,3 +24,5 @@ Another key which may work is `hc_reborn_7` (2.4, 210)
  
 
 And finally the last most used one is `hc_reborn_tester_5` (2.5, unknown build)
+
+More keys will be added to the default keylist if changed by the app.
