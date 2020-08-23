@@ -18,3 +18,4 @@ Simply place your `encrypted.hc` file in the same folder as the main script, the
 
 The keys change between some versions. The most recent key that should work with recent files is `hc_reborn_4`
 
+The most recent public beta key is `hc_reborn_7`
