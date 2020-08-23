@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from typing import Callable, List, ByteString, NamedTuple, Dict, NewType
+from typing import Callable, List, ByteString, Tuple, NamedTuple, Dict, NewType
 
 from base64 import b64decode
 
@@ -65,20 +65,67 @@ def decrypt_obfuscated(contents: ByteString, key: str) -> ByteString:
     # then use the plain decryptor
     return decrypt_plain(encrypted_contents, key)
 
+embeddedKeyList: str = """1:hc_reborn___7
+1:hc_reborn_tester_5
+1:hc_reborn_7
+1:hc_reborn_4
+"""
+
 # parse arguments
 parser = ArgumentParser('hcdecryptor')
 parser.add_argument('file', help='file to decrypt')
-parser.add_argument('key', help='key to decrypt the file with')
+
+key_args = parser.add_mutually_exclusive_group()
+key_args.add_argument('--key', '-k', help='key to use to decrypt the file')
+key_args.add_argument('--keyfile', '-K', help='keyfile to additionally look for keys in')
+
 parser.add_argument('--raw', '-r', action='store_true', help='output raw, decrypted file')
 args: NamedTuple = parser.parse_args()
+
+# parse keyfile
+def parse_key_entry(entry: str):
+    key_list = entry.split(':', 1)
+
+    return (int(key_list[0]), key_list[1].strip())
+
+if not args.key:
+    keylist = set(embeddedKeyList.splitlines())
+
+    if args.keyfile:
+        keyfile = open(args.keyfile, 'r')
+        keyfile_contents = set(keyfile.readlines())
+
+        keylist = keylist | keyfile_contents
+
+    keylist = list(map(parse_key_entry, keylist))
 
 # open file
 xor_b64_encrypted_file = open(args.file, mode='r')
 xor_b64_encrypted_contents: ByteString = xor_b64_encrypted_file.read()
 
-print(f'Opened file "{args.file}"')
+print(f'Opened {args.file}')
 
-original_contents: str = encryption_schemes[1](xor_b64_encrypted_contents, args.key).decode('utf-8')
+original_contents: str = ''
+
+for index in range(len(keylist)):
+    key = keylist[index]
+
+    print(f'Trying key {key[1]}')
+
+    decrypted_contents: ByteString = encryption_schemes[key[0]](xor_b64_encrypted_contents, key[1])
+
+    try:
+        original_contents = decrypted_contents.decode('utf-8')
+    except UnicodeDecodeError:
+        if index >= len(keylist):
+            print('Ran out of keys!')
+            exit(1)
+
+        print('Wrong key, trying next one...')
+
+    if 'splitConfig' in original_contents:
+        print(f'Successfully decrypted {args.file} with key {key[1]}')
+        break
 
 if not args.raw:
     config: List[str] = original_contents.split('[splitConfig]')
