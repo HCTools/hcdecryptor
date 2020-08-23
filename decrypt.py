@@ -78,7 +78,7 @@ print(f'Opened file "{args.file}"')
 
 original_contents: ByteString = encryption_schemes[1](xor_b64_encrypted_contents, args.key)
 
-config: List[str] = original_contents.split(b'[splitConfig]')
+config: List[str] = original_contents.split('[splitConfig]')
 values: Dict[str, str] = dict(zip(valueMap, config))
 
 print(values)
