@@ -53,7 +53,7 @@ def decrypt_plain(contents: ByteString, key: str) -> ByteString:
 @encryption_scheme
 def decrypt_obfuscated(contents: ByteString, key: str) -> ByteString:
     # unxor the file
-    b64_encrypted_contents = b''
+    b64_encrypted_contents = b""
 
     for index in range(len(contents)):
         b64_encrypted_contents += bytes([ord(contents[index]) ^ ord(xorList[index % len(xorList)])])
@@ -78,7 +78,7 @@ print(f'Opened file "{args.file}"')
 
 original_contents: ByteString = encryption_schemes[1](xor_b64_encrypted_contents, args.key)
 
-config: List[str] = original_contents.split('[splitConfig]')
+config: List[str] = original_contents.split(b"[splitConfig]")
 values: Dict[str, str] = dict(zip(valueMap, config))
 
 print(values)
