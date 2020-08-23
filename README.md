@@ -16,6 +16,11 @@ Simply place your `encrypted.hc` file in the same folder as the main script, the
 
 ## Keys
 
-The keys change between some versions. The most recent key that should work with recent files is `hc_reborn_4`
+The keys change between some versions. The most recent key that should work with recent files is `hc_reborn_4` (latest version from Play Store)
 
-The most recent public beta key is `hc_reborn_7`
+The most recent public beta key is `hc_reborn___7` (2.6, 232)
+
+Another key which may work is `hc_reborn_7` (2.4, 210)
+ 
+
+And finally the last most used one is `hc_reborn_tester_5` (2.5, unknown build)
