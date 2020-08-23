@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from argparse import ArgumentParser
 
 from typing import Callable, List, ByteString, Tuple, NamedTuple, Dict, NewType
