@@ -94,6 +94,7 @@ embeddedKeyList: str = '''1:hc_reborn___7
 1:hc_reborn_tester_5
 1:hc_reborn_7
 1:hc_reborn_4
+1:hc_reborn_3
 '''
 
 # parse arguments
