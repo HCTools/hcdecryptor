@@ -91,10 +91,32 @@ def decrypt_obfuscated(contents: ByteString, key: str) -> ByteString:
     return decrypt_plain(encrypted_contents, key)
 
 embeddedKeyList: str = '''1:hc_reborn___7
+1:hc_reborn_tester
 1:hc_reborn_tester_5
 1:hc_reborn_7
+1:hc_reborn_6
+1:hc_reborn_5
 1:hc_reborn_4
 1:hc_reborn_3
+1:hc_reborn_2
+1:hc_reborn_1
+0:hc_reborn10
+0:hc_reborn9
+0:hc_reborn8
+0:hc_reborn7
+0:keY_secReaT_hc
+0:keY_secReaT_hc1
+0:keY_secReaT_hc2
+0:keY_secReaT_hc_reborn
+0:keY_secReaT_hc_reborn1
+0:keY_secReaT_hc_2
+0:keY_secReaT_hc_reborn3
+0:keY_secReaT_hc_reborn4
+0:keY_secReaT_hc_reborn5
+0:keY_secReaT_hc_reborn6
+0:keY_secReaT_te4Z9
+0:keY_secReaT_te4Z10
+0:keY_secReaT_te4Z11
 '''
 
 # parse arguments
