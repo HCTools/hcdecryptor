@@ -59,38 +59,23 @@ valueMap: List[str] = [
     'password'
 ]
 
-xorList: List[str] = ['。', '〃', '〄', '々', '〆', '〇', '〈', '〉', '《', '》', '「', '」', '『', '』', '【', '】', '〒', '〓', '〔', '〕']
+xorList = ['。', '〃', '〄', '々', '〆', '〇', '〈', '〉', '《', '》', '「', '」', '『', '』', '【', '】', '〒', '〓', '〔', '〕']
 
-DecryptFunction = NewType('DecryptFunction', Callable[[ByteString, str], ByteString])
-encryption_schemes: List[DecryptFunction] = []
-
-def encryption_scheme(func: DecryptFunction):
-    global encryption_schemes
-    encryption_schemes.append(func)
-
-    return func
-
-@encryption_scheme
-def decrypt_plain(contents: ByteString, key: str) -> ByteString:
+def decrypt(contents, key):
     decryption_key = SHA1.new(data=bytes(key, 'utf-8')).digest()[:16]
 
     return AES.new(decryption_key, AES.MODE_ECB).decrypt(contents)
 
-@encryption_scheme
-def decrypt_obfuscated(contents: ByteString, key: str) -> ByteString:
-    # unxor the file
-    b64_encrypted_contents = b""
+def deobfuscate(contents):
+    encrypted_string = contents.decode('utf-8')
+    deobfuscated_contents = b''
 
-    for index in range(len(contents)):
-        b64_encrypted_contents += bytes([ord(contents[index]) ^ ord(xorList[index % len(xorList)])])
+    for index in range(len(encrypted_string)):
+        deobfuscated_contents += bytes([ord(encrypted_string[index]) ^ ord(xorList[index % len(xorList)])])
 
-    # base64 decode the file
-    encrypted_contents = b64decode(b64_encrypted_contents)
+    return b64decode(deobfuscated_contents)
 
-    # then use the plain decryptor
-    return decrypt_plain(encrypted_contents, key)
-
-embeddedKeyList: str = '''1:hc_reborn___7
+embeddedKeyList = '''1:hc_reborn___7
 1:hc_reborn_tester
 1:hc_reborn_tester_5
 1:hc_reborn_7
@@ -132,10 +117,10 @@ parser.add_argument('--raw', '-r', action='store_true', help='output raw, decryp
 args = parser.parse_args()
 
 # parse keyfile
-def parse_key_entry(entry: str):
+def parse_key_entry(entry):
     key_list = entry.split(':', 1)
 
-    return (int(key_list[0]), key_list[1].strip())
+    return (bool(int(key_list[0])), key_list[1].strip())
 
 if not args.key:
     keylist = set(embeddedKeyList.splitlines())
@@ -149,36 +134,43 @@ if not args.key:
     keylist = list(map(parse_key_entry, keylist))
 
 # open file
-xor_b64_encrypted_file = open(args.file, mode='r')
-xor_b64_encrypted_contents: ByteString = xor_b64_encrypted_file.read()
+encrypted_file = open(args.file, mode='rb')
+encrypted_contents = encrypted_file.read()
 
 print(f'Opened {args.file}')
 
-original_contents: str = ''
+deobfuscated_contents = deobfuscate(encrypted_contents)
+original_contents = ''
 
-for index in range(len(keylist)):
-    key = keylist[index]
+if not args.key:
+    for index in range(len(keylist)):
+        key = keylist[index]
+        contents = deobfuscated_contents if key[0] else encrypted_contents
 
-    print(f'Trying key {key[1]}')
+        print(f'Trying key {key[1]}')
 
-    decrypted_contents: ByteString = encryption_schemes[key[0]](xor_b64_encrypted_contents, key[1])
+        try:
+            original_contents = decrypt(contents, key[1]).decode('utf-8')
+        except:
+            if index >= len(keylist):
+                print('Ran out of keys!')
+                exit(1)
 
+            print('Wrong key, trying next one...')
+
+        if 'splitConfig' in original_contents:
+            print(f'Successfully decrypted {args.file} with key {key[1]}')
+            break
+else:
     try:
-        original_contents = decrypted_contents.decode('utf-8')
-    except UnicodeDecodeError:
-        if index >= len(keylist):
-            print('Ran out of keys!')
-            exit(1)
-
-        print('Wrong key, trying next one...')
-
-    if 'splitConfig' in original_contents:
-        print(f'Successfully decrypted {args.file} with key {key[1]}')
-        break
+        original_contents = decrypt(deobfuscated_contents, args.key).decode('utf-8')
+    except:
+        print('Wrong key!')
+        exit(1)
 
 if not args.raw:
-    config: List[str] = original_contents.split('[splitConfig]')
-    values: Dict[str, str] = dict(zip(valueMap, config))
+    config = original_contents.split('[splitConfig]')
+    values = dict(zip(valueMap, config))
 
     print(values)
 else:
