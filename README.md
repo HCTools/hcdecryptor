@@ -4,6 +4,8 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+Made by Michael and @LDLGD0
+
 Decryptor for HTTP Custom configuration files
 
 Decrypts files with `.hc` extension, for the app [HTTP Custom](https://play.google.com/store/apps/details?id=xyz.easypro.httpcustom)
