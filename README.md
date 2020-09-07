@@ -4,7 +4,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Made by Michael and @LDLGD0
+Made by D4rkh3xx0r69420 and @LDLGD0
 
 Decryptor for HTTP Custom configuration files
 
