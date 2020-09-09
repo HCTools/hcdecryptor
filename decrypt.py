@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-Copyright (C) 2020  The HCDecryptor Authors
+Copyright (C) 2020  HCTools
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
 # print a GPL notice
-copyrightNotice = '''HCDecryptor, Copyright (C) 2020  The HCDecryptor Authors\n
+copyrightNotice = '''HCDecryptor, Copyright (C) 2020  HCTools\n
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it under certain conditions.
 '''
