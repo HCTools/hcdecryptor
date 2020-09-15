@@ -139,13 +139,16 @@ encrypted_contents = encrypted_file.read()
 
 print(f'Opened {args.file}')
 
-deobfuscated_contents = deobfuscate(encrypted_contents)
+try:
+    contents = deobfuscate(encrypted_contents)
+except:
+    contents = encrypted_contents
+
 original_contents = ''
 
 if not args.key:
     for index in range(len(keylist)):
         key = keylist[index]
-        contents = deobfuscated_contents if key[0] else encrypted_contents
 
         print(f'Trying key {key[1]}')
 
