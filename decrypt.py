@@ -102,6 +102,7 @@ embeddedKeyList = '''1:hc_reborn___7
 0:keY_secReaT_te4Z9
 0:keY_secReaT_te4Z10
 0:keY_secReaT_te4Z11
+0:keY_secReaT_e
 '''
 
 # parse arguments
