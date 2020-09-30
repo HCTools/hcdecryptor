@@ -75,7 +75,8 @@ def deobfuscate(contents):
 
     return b64decode(deobfuscated_contents)
 
-embeddedKeyList = '''1:hc_reborn___7
+embeddedKeyList = '''1:hc35_easypro_8
+1:hc_reborn___7
 1:hc_reborn_tester
 1:hc_reborn_tester_5
 1:hc_reborn_7
